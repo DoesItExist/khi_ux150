@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="khi_ux150">
+
+  <!-- Import khi_ux150 macro -->
+  <xacro:include filename="$(find khi_ux150)/urdf/khi_ux150_description.urdf.xacro"/>
+
+  <!-- create link fixed to the "world" -->
+  <link name="world"/>
+
+  <xacro:khi_ux150_description/>
+
+  <!-- Import r6bot ros2_control description -->
+  <xacro:include filename="$(find khi_ux150)/ros2_control/r6bot.ros2_control.xacro" />
+  <xacro:r6bot_ros2_control name="khi_ux150"/>
+
+</robot>
