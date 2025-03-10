@@ -1,0 +1,260 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="khi_ux150_description">
+
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0 0 0.1375" rpy="0 0 0"/>
+      <mass value="1000"/>
+      <inertia ixx="21.201" iyy="21.201" izz="18.05" ixy="0" iyz="0" ixz="0"/>
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="package://khi_ux150/meshes/link_0.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy = "0 0 0"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://khi_ux150/meshes/link_0.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+      <origin xyz="0 0 0" rpy = "0 0 0"/>
+    </collision>      
+  </link>
+
+
+  <link name="link_1">
+    <inertial>
+      <origin xyz="-0.028742946749996084 0.02089074368559713 0.19253316678423943" rpy="0 0 0"/>
+      <mass value="1176.4967976314256"/>
+      <inertia ixx="74.79433" iyy="78.77234" izz="96.294491" ixy="2.448201" iyz="1.501258" ixz="-4.602941"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://khi_ux150/meshes/link_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://khi_ux150/meshes/link_1.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="link_2">
+    <inertial>
+      <origin xyz="0.03986921708247279 -0.11886034656515326 0.4283031108524009" rpy="0 0 0"/>
+      <mass value="325.8856826388532"/>
+      <inertia ixx="29.537916" iyy="28.866593" izz="2.891112" ixy="-0.023988" iyz="0.750748" ixz="-0.584538"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://khi_ux150/meshes/link_2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://khi_ux150/meshes/link_2.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="link_3">
+    <inertial>
+      <origin xyz="0.05147265165690296 0.17435826511621838 0.20752905435106528" rpy="0 0 0"/>
+      <mass value="382.54283393330616"/>
+      <inertia ixx="10.909748" iyy="19.707084" izz="19.370158" ixy="1.971985" iyz="-1.309565" ixz="-3.359941"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://khi_ux150/meshes/link_3.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://khi_ux150/meshes/link_3.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="link_4">
+    <inertial>
+      <origin xyz="0.00022313109769489525 0.14237163988102403 0.3394239394935594" rpy="0 0 0"/>
+      <mass value="283.2079465964804"/>
+      <inertia ixx="54.253239" iyy="54.176125" izz="2.428567" ixy="-0.016596" iyz="1.878739" ixz="0.018447"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://khi_ux150/meshes/link_4.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://khi_ux150/meshes/link_4.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="link_5">
+    <inertial>
+      <origin xyz="8.17668405206362e-09 -0.0053868664486536955 0.1216289930409955" rpy="0 0 0"/>
+      <mass value="11.12471949612164"/>
+      <inertia ixx="0.050234" iyy="0.045915" izz="0.014664" ixy="0.0" iyz="0.002899" ixz="0.0"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://khi_ux150/meshes/link_5.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://khi_ux150/meshes/link_5.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="link_6">
+    <inertial>
+      <origin xyz="0.0 0.044184610514243786 0.06257690433843299" rpy="0 0 0"/>
+      <mass value="45.41875384971286"/>
+      <inertia ixx="0.523197" iyy="0.363955" izz="0.34711" ixy="-0.0" iyz="-0.07141" ixz="-0.0"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://khi_ux150/meshes/link_6.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://khi_ux150/meshes/link_6.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="link_7">
+    <inertial>
+      <origin xyz="5.551115123125783e-17 0.0 0.010000000000000231" rpy="0 0 0"/>
+      <mass value="3.9951633775701394"/>
+      <inertia ixx="0.008223" iyy="0.008223" izz="0.01618" ixy="0.0" iyz="-0.0" ixz="0.0"/>
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://khi_ux150/meshes/link_7.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <mesh filename="package://khi_ux150/meshes/link_7.stl" scale="0.001 0.001 0.001"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="ft_frame"/>
+  <link name="tool0"/>
+
+  <!-- base_joint fixes base_link to the environment -->
+  <joint name="base_joint" type="fixed">
+    <parent link="world"/>
+    <child link="base_link"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+
+  <!-- joints - main serial chain -->
+  <joint name="joint_1" type="revolute">
+    <origin xyz="0.0 0.0 0.275" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="link_1"/>
+    <axis xyz="0.0 0.0 -1.0"/>
+    <limit lower="-3.1459" upper="3.1459" effort="1000" velocity="1"/>
+  </joint>
+
+  <joint name="joint_2" type="revolute">
+      <origin xyz="0.135 -0.14 0.425" rpy="0 0 0"/>
+      <parent link="link_1"/>
+      <child link="link_2"/>
+      <axis xyz="0.0 1.0 0.0"/>
+      <limit lower="-1.22173" upper="1.13446" effort="1000" velocity="1"/>
+  </joint>
+
+  <!-- <joint name="joint_2_2" type="revolute">
+      <origin xyz="-0.215 -0.2 0.46" rpy="0 0 0"/>
+      <parent link="link_1"/>
+      <child link="${prefix}parallel_2"/>
+      <axis xyz="0.0 -1.0 0.0"/>
+      <limit lower="-1.22173" upper="1.13446" effort="1000" velocity="1"/>
+      <mimic joint="jointt2" multiplier="1.0"/>
+  </joint> -->
+
+  <joint name="joint_2_1" type="revolute">
+      <origin xyz="0.0 -0.26 0.9" rpy="0 0 0"/>
+      <parent link="link_2"/>
+      <child link="link_3"/>
+      <axis xyz="0.0 -1.0 0.0"/>
+      <limit lower="-1.22173" upper="1.13446" effort="1000" velocity="1"/>
+      <mimic joint="joint_2" multiplier="1.0"/>
+  </joint>
+
+  <joint name="joint_3" type="revolute">
+      <origin xyz="0.2 0.275 0.27" rpy="0 1.5707963 0"/>
+      <parent link="link_3"/>
+      <child link="link_4"/>
+      <axis xyz="0.0 -1.0 0.0"/>
+      <limit lower="-1.578" upper="2.07694" effort="1000" velocity="1"/>
+  </joint>
+
+  <joint name="joint_4" type="revolute">
+      <origin xyz="0.0 0.125 1.18" rpy="0 0 0"/>
+      <parent link="link_4"/>
+      <child link="link_5"/>
+      <axis xyz="0.0 0.0 1.0"/>
+      <limit lower="-4.88692" upper="4.88692" effort="1000" velocity="1"/>
+  </joint>
+
+  <joint name="joint_5" type="revolute">
+      <origin xyz="0.0 -0.07 0.17" rpy="0 0 0"/>
+      <parent link="link_5"/>
+      <child link="link_6"/>
+      <axis xyz="0.0 -1.0 0.0"/>
+      <limit lower="-2.18166" upper="2.18166" effort="1000" velocity="1"/>
+  </joint>
+
+  <joint name="joint_6" type="revolute">
+      <origin xyz="0.0 0.07 0.185" rpy="0 0 0"/>
+      <parent link="link_6"/>
+      <child link="link_7"/>
+      <axis xyz="0.0 0.0 1.0"/>
+      <limit lower="-6.28319" upper="6.28319" effort="1000" velocity="1"/>
+  </joint>
+
+  <joint name="joint-ft_frame" type="fixed">
+    <parent link="link_7"/>
+    <child link="ft_frame"/>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </joint>
+
+  <joint name="joint-tool" type="fixed">
+    <parent link="ft_frame"/>
+    <child link="tool0"/>
+    <origin xyz="0 0 .185" rpy="0 0 0"/>
+  </joint>
+
+
+</xacro:macro>
+
+</robot>
