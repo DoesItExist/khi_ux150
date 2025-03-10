@@ -30,13 +30,14 @@
 
 namespace khi_ux150_controller
 {
+
 CallbackReturn RobotSystem::on_init(const hardware_interface::HardwareInfo & info)
 {
   if (hardware_interface::SystemInterface::on_init(info) != CallbackReturn::SUCCESS)
   {
     return CallbackReturn::ERROR;
   }
-  return hardware_interface::CallbackReturn::SUCCESS;
+  return CallbackReturn::SUCCESS;
 }
 
 CallbackReturn RobotSystem::on_configure(const rclcpp_lifecycle::State & /*previous_state*/)
@@ -59,7 +60,6 @@ CallbackReturn RobotSystem::on_configure(const rclcpp_lifecycle::State & /*previ
   return CallbackReturn::SUCCESS;
 }
 
-
 CallbackReturn RobotSystem::on_activate(const rclcpp_lifecycle::State & /*previous_state*/)
 {
   if(telnetConnect("192.168.0.2", 23) < 0){
@@ -69,6 +69,9 @@ CallbackReturn RobotSystem::on_activate(const rclcpp_lifecycle::State & /*previo
   /*TODO Retrieve robot info and status, clear errors, power motors,...*/
   telnetWrite("where");
   hw_state_position_ = parsePositionData(telnetRead());
+  std::vector<double> zeros(6, 0.0);
+  hw_command_position_ = zeros;
+
   return hardware_interface::CallbackReturn::SUCCESS;
 }
 
@@ -83,33 +86,52 @@ return_type RobotSystem::read(const rclcpp::Time & /*time*/, const rclcpp::Durat
 {
   //Get position data
   telnetWrite("where");
-  hw_state_position_ = parsePositionData(telnetRead());
-  std::string tmp_pos;
-  std::string tmp_vel;
 
-  //Set hardware states
-  for (std::size_t i = 0; i < info_.joints.size(); i++)
-  {
-    const auto name_vel = info_.joints[i].name + "/" + hardware_interface::HW_IF_VELOCITY;
-    const auto name_pos = info_.joints[i].name + "/" + hardware_interface::HW_IF_POSITION;
-    
-    //Sim Mode
-    //set_state(name_vel, get_command(name_vel));
-    //set_state(name_pos, get_state(name_pos) + get_state(name_vel) * period.seconds());
+  std::vector<double> read_pos = parsePositionData(telnetRead()); //Try to read position
+  std::string tmp_pos; //TODO Remove testing
+  std::string tmp_vel; //TODO Remove testing
 
-    //Real Mode
-    set_state(name_vel, (hw_state_position_[i]-get_state(name_pos))/period.seconds());
-    set_state(name_pos, hw_state_position_[i]);
-    tmp_pos.append(std::to_string(get_state(name_pos))+"\t");
-    tmp_vel.append(std::to_string(get_state(name_vel))+"\t");
+  if(read_pos.size()==info_.joints.size()){ //If Read successful
+    hw_state_position_ = read_pos;
+    //Set hardware states
+    for (std::size_t i = 0; i < info_.joints.size(); i++)
+    {
+      const auto name_vel = info_.joints[i].name + "/" + hardware_interface::HW_IF_VELOCITY;
+      const auto name_pos = info_.joints[i].name + "/" + hardware_interface::HW_IF_POSITION;
+      
+      //Sim Mode
+      //set_state(name_vel, get_command(name_vel));
+      //set_state(name_pos, get_state(name_pos) + get_state(name_vel) * period.seconds());
+
+      //Real Mode
+      set_state(name_vel, (hw_state_position_[i]-get_state(name_pos))/period.seconds());
+      set_state(name_pos, hw_state_position_[i]);
+      tmp_pos.append(std::to_string(get_state(name_pos))+"\t");
+      tmp_vel.append(std::to_string(get_state(name_vel))+"\t");
+    }
+    RCLCPP_INFO(rclcpp::get_logger("HardwareInterface"), "Set real pos values: %s", tmp_pos.c_str()); //TODO testing Remove
+    RCLCPP_INFO(rclcpp::get_logger("HardwareInterface"), "Set real vel values: %s", tmp_vel.c_str()); //TODO testing Remove
   }
-  RCLCPP_INFO(rclcpp::get_logger("HardwareInterface"), "Set real pos values: %s", tmp_pos.c_str()); //TODO Remove
-  RCLCPP_INFO(rclcpp::get_logger("HardwareInterface"), "Set real vel values: %s", tmp_vel.c_str()); //TODO Remove
   return return_type::OK;
 }
 
 return_type RobotSystem::write(const rclcpp::Time &, const rclcpp::Duration &)
 {
+  RCLCPP_INFO(rclcpp::get_logger("HardwareInterface"), "Attempting write"); //TODO testing Remove
+  std::string testing = "Fetched command interfaces: ";
+  std::vector<double> hw_previous_command_position = hw_command_position_;
+  for (std::size_t i = 0; i < info_.joints.size(); i++)
+  {
+    const auto name_pos = info_.joints[i].name + "/" + hardware_interface::HW_IF_POSITION;
+    RCLCPP_INFO(rclcpp::get_logger("HardwareInterface"), "Fetching command %s", name_pos.c_str()); //TODO testing Remove
+    hw_command_position_[i] = get_command(name_pos);
+    RCLCPP_INFO(rclcpp::get_logger("HardwareInterface"), "Fetched command JT%ld : %f", i+1, hw_command_position_[i]); //TODO testing Remove
+    testing.append(std::to_string(hw_command_position_[i])+" ");
+  }
+  RCLCPP_INFO(rclcpp::get_logger("HardwareInterface"), "%s", testing.c_str()); //TODO testing Remove
+  if(hw_command_position_ != hw_previous_command_position){
+    telnetWrite(getJmoveCommand(hw_command_position_));
+  }
   return return_type::OK;
 }
 
@@ -156,9 +178,6 @@ std::string RobotSystem::telnetRead()
     char buffer[512];
     std::string response;
     int bytes_received;
-
-    // Clear previous response
-    response.clear();
 
     while (true) {
         bytes_received = recv(sock_, buffer, sizeof(buffer) - 1, 0);
@@ -253,6 +272,16 @@ std::vector<double> RobotSystem::parsePositionData(const std::string &response)
 
 double RobotSystem::degToRad(double degrees){
   return degrees * M_PI/180.0;
+}
+
+std::string RobotSystem::getJmoveCommand(std::vector<double> command)
+{
+  std::string jmove_command = "do jmove #[";
+  for(std::size_t i = 0; i < info_.joints.size()-1; i++){
+    jmove_command.append(std::to_string(command[i])+", ");
+  }
+  jmove_command.append(std::to_string(command[info_.joints.size()-1])+"]");
+  return jmove_command;
 }
 
 

@@ -189,7 +189,7 @@
       <parent link="link_1"/>
       <child link="link_2"/>
       <axis xyz="0.0 1.0 0.0"/>
-      <limit lower="-1.22173" upper="1.13446" effort="1000" velocity="1"/>
+      <limit lower="-1.13446" upper="1.22173" effort="1000" velocity="1"/>
   </joint>
 
   <!-- <joint name="joint_2_2" type="revolute">
@@ -197,7 +197,6 @@
       <parent link="link_1"/>
       <child link="${prefix}parallel_2"/>
       <axis xyz="0.0 -1.0 0.0"/>
-      <limit lower="-1.22173" upper="1.13446" effort="1000" velocity="1"/>
       <mimic joint="jointt2" multiplier="1.0"/>
   </joint> -->
 
@@ -206,7 +205,7 @@
       <parent link="link_2"/>
       <child link="link_3"/>
       <axis xyz="0.0 -1.0 0.0"/>
-      <limit lower="-1.22173" upper="1.13446" effort="1000" velocity="1"/>
+      <limit lower="-1.13446" upper="1.22173" effort="1000" velocity="1"/>
       <mimic joint="joint_2" multiplier="1.0"/>
   </joint>
 
@@ -215,7 +214,7 @@
       <parent link="link_3"/>
       <child link="link_4"/>
       <axis xyz="0.0 -1.0 0.0"/>
-      <limit lower="-1.578" upper="2.07694" effort="1000" velocity="1"/>
+      <limit lower="-2.07694" upper="1.578" effort="1000" velocity="1"/>
   </joint>
 
   <joint name="joint_4" type="revolute">

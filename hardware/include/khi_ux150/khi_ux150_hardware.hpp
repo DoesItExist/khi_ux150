@@ -53,10 +53,12 @@ protected:
   void telnetDisconnect();
   std::vector<double> parsePositionData(const std::string& response);
   double degToRad(double degrees);
+  std::string getJmoveCommand(std::vector<double> command);
   int sock_;
   bool is_connected_;
   std::vector<double> hw_state_position_;
   std::vector<double> hw_state_velocity_;
+  std::vector<double> hw_command_position_;
   rclcpp::Time hw_previous_time_;
 };
 
